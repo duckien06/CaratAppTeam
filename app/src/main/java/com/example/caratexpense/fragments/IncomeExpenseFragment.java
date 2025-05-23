@@ -73,7 +73,7 @@ public class IncomeExpenseFragment extends BaseFragment {
         return view;
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView() {//Khởi tạo danh sách transactionList và filteredTransactionLis
         transactionList = new ArrayList<>();
         filteredTransactionList = new ArrayList<>();
         adapter = new TransactionAdapter(filteredTransactionList, transactionWithCategory -> {
@@ -103,7 +103,7 @@ public class IncomeExpenseFragment extends BaseFragment {
         itemTouchHelper.attachToRecyclerView(rvTransactions);
     }
 
-    private void setupSearch() {
+    private void setupSearch() {// lọc danh sách giao dịch
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -118,7 +118,7 @@ public class IncomeExpenseFragment extends BaseFragment {
         });
     }
 
-    private void filterTransactions(String query) {
+    private void filterTransactions(String query) {//Xóa danh sách giao dịch lọc hiện tại.
         filteredTransactionList.clear();
 
         if (query.isEmpty()) {
@@ -138,7 +138,7 @@ public class IncomeExpenseFragment extends BaseFragment {
     }
 
 
-    private void showEditDeleteDialog(Transaction transaction) {
+    private void showEditDeleteDialog(Transaction transaction) {//Hiển thị dialog gồm 2 nút: Sửa và Xóa cho giao dịch được chọn.
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(requireContext());
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_delete, null);
         builder.setView(dialogView);
@@ -171,7 +171,7 @@ public class IncomeExpenseFragment extends BaseFragment {
         dialog.show();
     }
 
-    private void loadTransactions() {
+    private void loadTransactions() {// lấy toàn bộ giao dịch có thông tin category từ database.
         new Thread(() -> {
             List<TransactionWithCategory> transactionsWithCategory = transactionDao.getAllTransactionsWithCategory();
 
@@ -186,7 +186,7 @@ public class IncomeExpenseFragment extends BaseFragment {
     }
 
 
-    @Override
+    @Override//Khi fragment được hiện lại, tải lại danh sách giao dịch mới nhất.
     public void onResume() {
         super.onResume();
         loadTransactions();

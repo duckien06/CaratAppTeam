@@ -40,6 +40,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CategoryDetailFragment extends BaseFragment {
+    //Các biến sử dụng
     private TextView tvCategoryName, tvAmount, tvPeriod, tvNoTransactions;
     private ImageView ivBack, ivCategoryIcon;
     private RecyclerView rvTransactions;
@@ -62,12 +63,13 @@ public class CategoryDetailFragment extends BaseFragment {
     private static final int VIEW_TYPE_MONTHLY = 1;
     private static final int VIEW_TYPE_YEARLY = 2;
 
+    //Khởi tạo giao diện và dữ liệu
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_detail, container, false);
 
-        // Get data from arguments
+        // Lấy dữ liệu truyền vào từ Bundle (argument)
         Bundle args = getArguments();
         if (args != null) {
             categoryReport = (CategoryReport) args.getSerializable("categoryReport");
@@ -76,17 +78,17 @@ public class CategoryDetailFragment extends BaseFragment {
             isExpense = args.getBoolean("isExpense", true);
         }
 
-        // Initialize database
+        // Khởi tạo database dao
         transactionDao = AppDatabase.getInstance(requireContext()).transactionDao();
 
-        // Initialize views
+        // Khởi tạo lượt view
         initializeViews(view);
 
-        // Setup UI
+        // Thiết lập RecyclerView và adapter
         setupRecyclerView();
         setupListeners();
 
-        // Load data
+        // Nếu có báo cáo hợp lệ thì hiển thị và load dữ liệu giao dịch
         if (categoryReport != null) {
             updateCategoryInfo();
             loadTransactions();
@@ -98,6 +100,8 @@ public class CategoryDetailFragment extends BaseFragment {
         return view;
     }
 
+
+    //Lấy tham chiếu các view trong layout để thao tác sau này
     private void initializeViews(View view) {
         tvCategoryName = view.findViewById(R.id.tv_category_name);
         tvAmount = view.findViewById(R.id.tv_amount);
@@ -166,7 +170,7 @@ public class CategoryDetailFragment extends BaseFragment {
 
         executor.execute(() -> {
             try {
-                // Calculate date range
+                // Thiết lập khoảng thời gian bắt đầu và kết thúc
                 Calendar startDate = Calendar.getInstance();
                 Calendar endDate = Calendar.getInstance();
 
@@ -175,11 +179,11 @@ public class CategoryDetailFragment extends BaseFragment {
 
                 configureTimeRange(startDate, endDate);
 
-                // Format dates for query
+                // Chuyển đổi thời gian sang chuỗi để truy vấn DB
                 String startDateStr = DateTimeUtils.formatDateTime(startDate.getTime());
                 String endDateStr = DateTimeUtils.formatDateTime(endDate.getTime());
 
-                // Get transactions for this category in the date range
+                // Lọc giao dịch theo loại (thu hoặc chi)
                 List<TransactionWithCategory> categoryTransactions = transactionDao.getTransactionsWithCategoryByPeriodAndCategory(
                         startDateStr,
                         endDateStr,

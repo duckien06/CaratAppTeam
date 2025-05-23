@@ -24,7 +24,7 @@ public class  TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter
     private List<TransactionWithCategory> transactions;
     private OnTransactionClickListener listener;
 
-    public interface OnTransactionClickListener {
+    public interface OnTransactionClickListener {//Adapter này dùng để hiển thị danh sách các giao dịch (TransactionWithCategory) trong RecyclerView.
         void onTransactionClick(TransactionWithCategory transactionWithCategory);
     }
 
@@ -63,10 +63,12 @@ public class  TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter
         return transactions.size();
     }
     
-    class TransactionViewHolder extends RecyclerView.ViewHolder {
+    class TransactionViewHolder extends RecyclerView.ViewHolder {//ViewHolder giữ các tham chiếu đến view con trong item:
         private ImageView ivCategoryIcon;
         private TextView tvCategoryName, tvDateTime, tvNote, tvType, tvAmount;
-        
+
+
+        // Khởi tạo ViewHolder, tìm view con và đăng ký sự kiện click
         public TransactionViewHolder(@NonNull View itemView) {
             super(itemView);
             ivCategoryIcon = itemView.findViewById(R.id.iv_category_icon);

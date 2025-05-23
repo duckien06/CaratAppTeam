@@ -7,7 +7,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.Index;
 import java.io.Serializable;
-
+//Là các lớp dữ liệu (data class, entity) đại diện cho cấu trúc thông tin trong ứng dụng.
 @Entity(tableName = "transactions",
         foreignKeys = @ForeignKey(entity = Category.class,
                 parentColumns = "id",

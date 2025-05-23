@@ -43,6 +43,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.core.view.GravityCompat;
 
 public class AddTransactionFragment extends BaseFragment {
+    //Các thành phần UI
     private TextView tvUserName, tvExpense, tvIncome, tvDateTime;
     private ImageView ivMenu, ivBack, ivSettings;
     private EditText etAmount, etNote;
@@ -61,7 +62,7 @@ public class AddTransactionFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_transaction, container, false);
-
+        //Nạp layout cho fragment.
         categoryDao = AppDatabase.getInstance(requireContext()).categoryDao();
         transactionDao = AppDatabase.getInstance(requireContext()).transactionDao();
 

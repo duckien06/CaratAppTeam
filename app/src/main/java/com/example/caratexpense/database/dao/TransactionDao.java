@@ -11,7 +11,7 @@ import java.util.List;
 import com.example.caratexpense.models.TransactionWithCategory;
 
 @Dao
-public interface TransactionDao {
+public interface TransactionDao {//Truy cập dữ liệu, sử dụng phương thức
 
     @Insert
     long insert(com.example.caratexpense.models.Transaction transaction);

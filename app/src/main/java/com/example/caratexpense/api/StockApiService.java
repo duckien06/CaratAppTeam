@@ -5,7 +5,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-
+//Đây là interface định nghĩa các endpoint API mà app sẽ gọi.
 public interface StockApiService {
     // Định nghĩa phương thức API để lấy danh sách cổ phiếu
     @GET("v3/stock/list")

@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.caratexpense.R;
+import com.example.caratexpense.R;//dùng để truy cập các tài nguyên (resources) của ứng dụng
 import com.example.caratexpense.models.Category;
 import com.example.caratexpense.utils.IconUtils;
 
 import java.util.List;
-
+//Kết nối dữ liệu và hiển thị UI
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     private List<Category> categories;
     private OnCategoryClickListener listener;
@@ -66,12 +66,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         private TextView tvCategoryName;
         
         public CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
+            super(itemView);//Tìm view con trong itemView dựa theo id.
             cardView = itemView.findViewById(R.id.card_view);
             ivCategoryIcon = itemView.findViewById(R.id.iv_category_icon);
             tvCategoryName = itemView.findViewById(R.id.tv_category_name);
             
-            itemView.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {//Khi click, gọi callback onCategoryClick truyền category tương ứng.
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onCategoryClick(categories.get(position));
@@ -81,7 +81,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         
         public void bind(Category category) {
             // Set category icon
-            ivCategoryIcon.setImageResource(IconUtils.getIconResourceId(
+            ivCategoryIcon.setImageResource(IconUtils.getIconResourceId(//Gán icon cho ImageView dựa vào tên icon trong category
                     itemView.getContext(), 
                     category.getIconName()
             ));
@@ -90,11 +90,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
              tvCategoryName.setText(category.getName());
             
             // Highlight selected category
-            if (selectedCategory != null && selectedCategory.getId() == category.getId()) {
+            if (selectedCategory != null && selectedCategory.getId() == category.getId()) {// chọn (selectedCategory trùng id), thay đổi màu nền, màu icon, và màu chữ để nổi bật.
                 cardView.setCardBackgroundColor(itemView.getContext().getResources().getColor(R.color.green));
                 ivCategoryIcon.setColorFilter(itemView.getContext().getResources().getColor(R.color.white));
                 tvCategoryName.setTextColor(itemView.getContext().getResources().getColor(R.color.white));
-            } else {
+            } else {//Nếu không được chọn, đặt về màu nền xám nhạt, icon và chữ màu mặc định.
                 cardView.setCardBackgroundColor(itemView.getContext().getResources().getColor(R.color.light_gray));
                 ivCategoryIcon.clearColorFilter();
                 tvCategoryName.setTextColor(itemView.getContext().getResources().getColor(R.color.black));

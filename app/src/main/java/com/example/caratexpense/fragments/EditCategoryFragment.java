@@ -37,6 +37,8 @@ public class EditCategoryFragment extends BaseFragment {
     private boolean isExpense = true;
     private Category selectedCategory = null;
 
+
+    // Khởi tạo fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class EditCategoryFragment extends BaseFragment {
 
         tvUserName.setText(preferenceManager.getUserName());
 
-        // Check if we have a default selection
+        // Kiểm tra xem chúng ta có lựa chọn mặc định không
         if (getArguments() != null) {
             isExpense = getArguments().getBoolean("isExpense", true);
         }
@@ -108,7 +110,7 @@ public class EditCategoryFragment extends BaseFragment {
         }
     }
 
-    private void setupCategoryRecyclerView() {
+    private void setupCategoryRecyclerView() {//Khởi tạo adapter với danh sách và callback sự kiện click từng category.
         categoryList = new ArrayList<>();
         adapter = new CategoryAdapter(categoryList, category -> {
             selectedCategory = category;
@@ -120,7 +122,7 @@ public class EditCategoryFragment extends BaseFragment {
         rvCategories.setAdapter(adapter);
     }
 
-    private void loadCategories() {
+    private void loadCategories() {//Tải dữ liệu danh mục từ database
         new Thread(() -> {
             List<Category> categories;
             if (isExpense) {
